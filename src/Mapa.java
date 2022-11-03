@@ -5,28 +5,50 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Mapa
 {
     private int orden;
+    private ArrayList<Integer> porcentajes;
     private int[][] mapa;
 
     public Mapa(int orden)
     {
         this.orden = orden;
+        porcentajes = new ArrayList<Integer>();
+        mapa = new int[orden][orden];
+        Probabilides();
+        iniciarJuego();
+    }
+
+    public void iniciarJuego()
+    {
         int elementos = orden*orden;
-        List<Integer> porcentajes = new ArrayList<Integer>(); // Lista de porcentajes para ocurrir un evento. ( 25 posiciones )
-        for (int a=0; a<16; a++){ // 64% de probabilidad de ocurrir un evento
-            porcentajes.add(1);
-        }
-        for (int b=0; b<9; b++){ // 36% de probabilidad de no ocurrir nada
-            porcentajes.add(0);
-        }
-        mapa = new int[orden][orden]; // se crea la matriz
-        for (int i = 0; i < orden; i++) {       // Recorrer filas.
-            for (int j = 0; j < orden; j++) {    // Recorrer columnas.
-                elementos=elementos-1; // resta una probabilidad de las 25 a medida que las va llenando
-                mapa[i][j]=porcentajes.remove(ThreadLocalRandom.current().nextInt(0, elementos + 1)); // remueve una probabilidad de la lista y la mete a la matriz
+
+        for (int i = 0; i < orden; i++) // Recorrer filas.
+        {
+            for (int j = 0; j < orden; j++)
+            {    // Recorrer columnas.
+                elementos-=1; // resta una probabilidad de las 25 a medida que las va llenando
+                mapa[i][j] = porcentajes.remove(ThreadLocalRandom.current().nextInt(0, elementos + 1));// remueve una probabilidad de la lista y la mete a la matriz
             }
         }
+
+
     }
-    //METODOS PARA DISCUTIR E IR MIRANDO
+    private void Probabilides()
+    {
+         // Lista de porcentajes para ocurrir un evento. ( 25 posiciones )
+        System.out.println();
+        for (int i = 0; i < 25; i++)// 64% de probabilidad de ocurrir un evento y 36% de probabilidad de no ocurrir nada
+        {
+            if (i < 9)
+            {
+                porcentajes.add(0);
+            }else
+            {
+                porcentajes.add(1);
+            }
+        }
+
+    }
+
 
     public void mostrarMapa()
     {
@@ -41,25 +63,34 @@ public class Mapa
         }
     }
 
-    public int getEvent(int posicionX, int posicionY)
-    { //retorna el tipo de evento
-        if(mapa[posicionX][posicionY]==0){
+    public List<Integer> Eventos()
+    {
+        List<Integer> subeventos;
+        subeventos = new ArrayList<Integer>();
+
+        for (int i = 0; i < 100; i++) {
+            if (i < 25)// 25% probabilidad de recuperar HP
+            {
+                subeventos.add(1);
+            } else if (i < 40) // 40% probabilidad de recibir un ataque de Frezer
+            {
+                subeventos.add(2);
+            } else {
+                subeventos.add(3);// 35% de probabilidad de atacar a Freezer
+            }
+
+        }
+
+        return subeventos;
+    }
+
+    public int getEvent(int posicionX, int posicionY) //retorna el tipo de evento
+    {
+        if (mapa[posicionX][posicionY] == 0)
+        {
             return 0;
         }
-        else
-        {
-            List<Integer> subeventos = new ArrayList<Integer>(); // Lista de porcentajes para ocurrir uno de los 3 subeventos
-            for (int a=0; a<25; a++){ // 25% probabilidad de recuperar HP
-                subeventos.add(1);
-            }
-            for (int b=0; b<40; b++){ // 40% probabilidad de recibir un ataque de Frezer
-                subeventos.add(2);
-            }
-            for (int c=0; c<35; c++){ // 35% de probabilidad de atacar a Freezer
-                subeventos.add(3);
-            }
-            int subevento= subeventos.get(ThreadLocalRandom.current().nextInt(0, 100)); // selecciona un evento aleatorio de los 3 posibles (1,2,3)
-            return subevento;
-        }
+
+        return Eventos().get(ThreadLocalRandom.current().nextInt(0, 100));// selecciona un evento aleatorio de los 3 posibles (1,2,3)
     }
 }

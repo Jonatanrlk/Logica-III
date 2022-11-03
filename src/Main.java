@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main
@@ -9,7 +7,7 @@ public class Main
         Scanner input = new Scanner(System.in);
         String nombre="";
         char opcion;
-        Personaje personaje = new Personaje(" " , 0, 0 , 0, 0, 0 , 0,0,0,0,0,null);
+        Guerrero personaje = new Guerrero(" " , 0, 0 , 0, 0, 0 , 0,0,0,0,0,null);
         // ELECCION DEL PERSONAJE
         do {
             System.out.println("\t\t\t\tElige tu personaje");
@@ -34,15 +32,15 @@ public class Main
         //Y así mismo para los demas personajes
         switch (opcion) {
             case '1':
-                personaje  = new Personaje("Goku", 120, 22, 10,0,0, 0,0,300,5,0,null);
+                personaje  = new Guerrero("Goku", 120, 22, 10,0,0, 0,0,300,5,0,null);
                 nombre="GOKU";
                 break;
             case '2':
-                personaje = new Personaje("Vegeta", 150, 15, 20,0,0, 0,0,300,5,0,null);
+                personaje = new Guerrero("Vegeta", 150, 15, 20,0,0, 0,0,300,5,0,null);
                 nombre="VEGETA";
                 break;
             case '3':
-                personaje = new Personaje("Krilin", 90, 8, 8,0,0, 0,0,300,5,0,null);
+                personaje = new Guerrero("Krilin", 90, 8, 8,0,0, 0,0,300,5,0,null);
                 nombre="KRILLIN";
                 break;
             default:
