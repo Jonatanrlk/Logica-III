@@ -5,12 +5,14 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Mapa
 {
     private int orden;
+    private int x , y;
     private ArrayList<Integer> porcentajes;
     private int[][] mapa;
 
-    public Mapa(int orden)
+    public Mapa()
     {
-        this.orden = orden;
+        x = y = 0;
+        this.orden = 5;
         porcentajes = new ArrayList<Integer>();
         mapa = new int[orden][orden];
         Probabilides();
@@ -62,6 +64,26 @@ public class Mapa
             System.out.println("|");
         }
     }
+    public int cargarMapa()
+    {
+        int numero=0;
+
+        if((x < 1 || x < 2 || x < 3 || x < 4 || x < 5) && y < 5 )
+        {
+            numero = mapa[x][y];
+            y++;
+            if (y == 5)
+            {
+                x++;
+                y=0;
+            }
+        }else
+        {
+            x=0;
+        }
+        return numero;
+
+    }
 
     public List<Integer> Eventos()
     {
@@ -84,13 +106,17 @@ public class Mapa
         return subeventos;
     }
 
-    public int getEvent(int posicionX, int posicionY) //retorna el tipo de evento
+
+    //retorna el tipo de evento
+    public int getEvent(int posicionX, int posicionY)
     {
         if (mapa[posicionX][posicionY] == 0)
         {
             return 0;
         }
 
-        return Eventos().get(ThreadLocalRandom.current().nextInt(0, 100));// selecciona un evento aleatorio de los 3 posibles (1,2,3)
+        return Eventos().get(ThreadLocalRandom.current().nextInt(0, 100));
+        // selecciona un evento aleatorio de los 3 posibles (1,2,3)
     }
+
 }

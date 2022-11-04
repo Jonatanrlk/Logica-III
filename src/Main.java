@@ -49,7 +49,7 @@ public class Main
 
         // En proceso , este es simplemente es un objeto
         //campo(o mapa de 5x5) es el campo donde van a estar los eventos
-        Mapa campo = new Mapa(5);
+        Mapa campo = new Mapa();
         campo.mostrarMapa();
         System.out.println("-------------------------------");
         System.out.println();

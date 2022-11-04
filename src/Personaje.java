@@ -8,8 +8,15 @@ public class Personaje
     private int hp;
     private int posicionX;
     private int posicionY;
-    // short  (-32768 a 32767) memoria
 
+    public Personaje(String nombre, int ataque, int defensa, int hp, int posicionX, int posicionY) {
+        this.nombre = nombre;
+        this.ataque = ataque;
+        this.defensa = defensa;
+        this.hp = hp;
+        this.posicionX = posicionX;
+        this.posicionY = posicionY;
+    }
 
     public String getNombre()
     {

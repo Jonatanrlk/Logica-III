@@ -15,12 +15,7 @@ public class Guerrero extends Personaje
 
     public Guerrero(String nombre, int hp, int ataque, int defensa, int posicionX, int posicionY, int movimientos, int eventos, int hpFreezer, int defensaFreezer, int puntaje, ArrayList<String> historialEventos)
     {
-        setNombre(nombre);
-        setHp(hp);
-        setAtaque(ataque);
-        setDefensa(defensa);
-        setPosicionX(posicionX);
-        setPosicionY(posicionY);
+        super(nombre,ataque,defensa,hp,posicionX,posicionY);
         this.movimientos = movimientos;
         this.eventos = eventos;
         this.hpFreezer = hpFreezer;
@@ -93,24 +88,24 @@ public class Guerrero extends Personaje
 
     public void recuperaHp() {
         int hprecuperado = ThreadLocalRandom.current().nextInt(1, 10 + 1); //Recupera hp aleatoriamente entre 1 y 10
-        if(getNombre()=="Goku" && getHp()>=120){ // si tiene el hp completo no regenera nada
-            setHp(getHp()+0);
+        if(getNombre().equals("Goku") && getHp()>=120){ // si tiene el hp completo no regenera nada
+            setHp(getHp());
         }
-        if(getNombre()=="Vegeta" && getHp()>=150){ // si tiene el hp completo no regenera nada
-            setHp(getHp()+0);
+        if(getNombre().equals("Vegeta") && getHp()>=150){ // si tiene el hp completo no regenera nada
+            setHp(getHp());
         }
-        if(getNombre()=="Krilin" && getHp()>=90){ // si tiene el hp completo no regenera nada
-            setHp(getHp()+0);
+        if(getNombre().equals("Krilin") && getHp()>=90){ // si tiene el hp completo no regenera nada
+            setHp(getHp());
         }
         else{
             setHp(getHp()+hprecuperado);
-            if(getNombre()=="Goku" && getHp()>120){ // si se pasa de 120, lo deja en 120
+            if(getNombre().equals("Goku") && getHp()>120){ // si se pasa de 120, lo deja en 120
                 setHp(120);
             }
-            if(getNombre()=="Vegeta" && getHp()>150){ // si se pasa de 150, lo deja en 150
+            if(getNombre().equals("Vegeta") && getHp()>150){ // si se pasa de 150, lo deja en 150
                 setHp(150);
             }
-            if(getNombre()=="Krilin" && getHp()>90){ // si se pasa de 90, lo deja en 90
+            if(getNombre().equals("Krilin") && getHp()>90){ // si se pasa de 90, lo deja en 90
                 setHp(90);
             }
         }
